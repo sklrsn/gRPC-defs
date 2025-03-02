@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option go_package = "order;order";
+
+service OrderEngine {
+  rpc Reserve(ReserveRequest) returns (ReserveResponse) {};
+  rpc Release(ReleaseRequest) returns (ReleaseResponse) {};
+};
+
+
+message ReserveRequest {
+  string user_id = 1;
+  string product_id = 2;
+  int64 reserve_count = 3;
+};
+
+message ReserveResponse {
+  string order_reservation_id = 1;
+};
+
+message ReleaseRequest {
+  string order_reservation_id = 1;
+};
+
+message ReleaseResponse {
+  string status = 1;
+};

@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option go_package = "shipping;shipping";
+
+service Shipping {
+  rpc Dispatch(DispatchRequest) returns (DispatchResponse);
+  rpc Hold(HoldRequest) returns (HoldResponse);
+  rpc Retract(RetractRequest) returns (RetractResponse);
+};
+
+message DispatchRequest {
+  string order_id = 1;
+};
+
+message DispatchResponse {
+  string shipping_id = 1;
+};
+
+message HoldRequest {
+  string shipping_id = 1;
+};
+
+message HoldResponse {};
+
+message RetractRequest {
+  string order_id = 1;
+};
+
+message RetractResponse {};

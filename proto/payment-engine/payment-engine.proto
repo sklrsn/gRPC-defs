@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "payment;payment";
+
+
+service Payment {
+  rpc PreAuthorize(PreAuthorizeRequest) returns (PreAuthorizeResponse);
+  rpc Capture(CaptureRequest) returns (CaptureResponse);
+  rpc Release(ReleaseRequest) returns (ReleaseResponse);
+};
+
+message PreAuthorizeRequest {
+  string user_id = 1;
+  string merchant_id = 2;
+  int64 amount = 3;
+
+};
+message PreAuthorizeResponse {
+  string pre_authorization_id = 1;
+};
+
+message CaptureRequest {
+  string pre_authorization_id = 1;
+};
+message CaptureResponse {
+  string payment_capture_id = 1;
+};
+
+message ReleaseRequest {
+  string pre_authorization_id = 1;
+};
+message ReleaseResponse {
+  string status = 1;
+};

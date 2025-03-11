@@ -1,4 +1,4 @@
-module github.com/sklrsn/gRPC-kube
+module github.com/sklrsn/gRPC-defs
 
 go 1.24.0
 

@@ -1,1 +1,1 @@
-# gRPC-kube
+# gRPC-defs

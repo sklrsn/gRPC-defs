@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "shipping;shipping";
+option go_package = "github.com/sklrsn/gRPC-kube/shipping;shipping";
 
 service Shipping {
   rpc Dispatch(DispatchRequest) returns (DispatchResponse);

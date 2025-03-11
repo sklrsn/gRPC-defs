@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/sklrsn/gRPC-kube/payment;payment";
+option go_package = "github.com/sklrsn/gRPC-defs/payment;payment";
 
 
 service Payment {

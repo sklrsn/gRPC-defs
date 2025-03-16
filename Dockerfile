@@ -14,6 +14,6 @@ RUN date
 WORKDIR /work
 COPY ./proto proto/
 
-RUN protoc --go_out=. --go-grpc_out=. proto/order-engine/order-engine.proto
-RUN protoc --go_out=. --go-grpc_out=. proto/payment-engine/payment-engine.proto
-RUN protoc --go_out=. --go-grpc_out=. proto/shipping-engine/shipping-engine.proto
+RUN mkdir -p order && protoc --go_out=./order --go-grpc_out=./order proto/order-engine/order-engine.proto
+RUN mkdir -p payment && protoc --go_out=./payment --go-grpc_out=./payment proto/payment-engine/payment-engine.proto
+RUN mkdir -p shipping && protoc --go_out=./shipping --go-grpc_out=./shipping proto/shipping-engine/shipping-engine.proto

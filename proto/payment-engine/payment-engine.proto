@@ -1,12 +1,12 @@
 syntax = "proto3";
-
+package payment;
 option go_package = "github.com/sklrsn/gRPC-defs/payment;payment";
 
 
 service Payment {
   rpc PreAuthorize(PreAuthorizeRequest) returns (PreAuthorizeResponse);
   rpc Capture(CaptureRequest) returns (CaptureResponse);
-  rpc Release(PaymentReleaseRequest) returns (PaymentReleaseResponse);
+  rpc Release(ReleaseRequest) returns (ReleaseResponse);
 };
 
 message PreAuthorizeRequest {
@@ -26,9 +26,9 @@ message CaptureResponse {
   string payment_capture_id = 1;
 };
 
-message PaymentReleaseRequest {
+message ReleaseRequest {
   string pre_authorization_id = 1;
 };
-message PaymentReleaseResponse {
+message ReleaseResponse {
   string status = 1;
 };

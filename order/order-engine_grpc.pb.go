@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	OrderEngine_Reserve_FullMethodName = "/OrderEngine/Reserve"
-	OrderEngine_Release_FullMethodName = "/OrderEngine/Release"
+	OrderEngine_Reserve_FullMethodName = "/order.OrderEngine/Reserve"
+	OrderEngine_Release_FullMethodName = "/order.OrderEngine/Release"
 )
 
 // OrderEngineClient is the client API for OrderEngine service.
@@ -142,7 +142,7 @@ func _OrderEngine_Release_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OrderEngine_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "OrderEngine",
+	ServiceName: "order.OrderEngine",
 	HandlerType: (*OrderEngineServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

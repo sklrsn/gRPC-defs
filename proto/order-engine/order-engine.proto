@@ -1,5 +1,5 @@
 syntax = "proto3";
-
+package order;
 option go_package = "github.com/sklrsn/gRPC-defs/order;order";
 
 service OrderEngine {

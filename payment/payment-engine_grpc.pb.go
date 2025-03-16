@@ -21,7 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	Payment_PreAuthorize_FullMethodName = "/payment.Payment/PreAuthorize"
 	Payment_Capture_FullMethodName      = "/payment.Payment/Capture"
-	Payment_Release_FullMethodName      = "/payment.Payment/Release"
+	Payment_Reimburse_FullMethodName    = "/payment.Payment/Reimburse"
 )
 
 // PaymentClient is the client API for Payment service.
@@ -30,7 +30,7 @@ const (
 type PaymentClient interface {
 	PreAuthorize(ctx context.Context, in *PreAuthorizeRequest, opts ...grpc.CallOption) (*PreAuthorizeResponse, error)
 	Capture(ctx context.Context, in *CaptureRequest, opts ...grpc.CallOption) (*CaptureResponse, error)
-	Release(ctx context.Context, in *ReleaseRequest, opts ...grpc.CallOption) (*ReleaseResponse, error)
+	Reimburse(ctx context.Context, in *ReimburseRequest, opts ...grpc.CallOption) (*ReimburseResponse, error)
 }
 
 type paymentClient struct {
@@ -61,10 +61,10 @@ func (c *paymentClient) Capture(ctx context.Context, in *CaptureRequest, opts ..
 	return out, nil
 }
 
-func (c *paymentClient) Release(ctx context.Context, in *ReleaseRequest, opts ...grpc.CallOption) (*ReleaseResponse, error) {
+func (c *paymentClient) Reimburse(ctx context.Context, in *ReimburseRequest, opts ...grpc.CallOption) (*ReimburseResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ReleaseResponse)
-	err := c.cc.Invoke(ctx, Payment_Release_FullMethodName, in, out, cOpts...)
+	out := new(ReimburseResponse)
+	err := c.cc.Invoke(ctx, Payment_Reimburse_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *paymentClient) Release(ctx context.Context, in *ReleaseRequest, opts ..
 type PaymentServer interface {
 	PreAuthorize(context.Context, *PreAuthorizeRequest) (*PreAuthorizeResponse, error)
 	Capture(context.Context, *CaptureRequest) (*CaptureResponse, error)
-	Release(context.Context, *ReleaseRequest) (*ReleaseResponse, error)
+	Reimburse(context.Context, *ReimburseRequest) (*ReimburseResponse, error)
 	mustEmbedUnimplementedPaymentServer()
 }
 
@@ -94,8 +94,8 @@ func (UnimplementedPaymentServer) PreAuthorize(context.Context, *PreAuthorizeReq
 func (UnimplementedPaymentServer) Capture(context.Context, *CaptureRequest) (*CaptureResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Capture not implemented")
 }
-func (UnimplementedPaymentServer) Release(context.Context, *ReleaseRequest) (*ReleaseResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Release not implemented")
+func (UnimplementedPaymentServer) Reimburse(context.Context, *ReimburseRequest) (*ReimburseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Reimburse not implemented")
 }
 func (UnimplementedPaymentServer) mustEmbedUnimplementedPaymentServer() {}
 func (UnimplementedPaymentServer) testEmbeddedByValue()                 {}
@@ -154,20 +154,20 @@ func _Payment_Capture_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Payment_Release_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReleaseRequest)
+func _Payment_Reimburse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReimburseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PaymentServer).Release(ctx, in)
+		return srv.(PaymentServer).Reimburse(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Payment_Release_FullMethodName,
+		FullMethod: Payment_Reimburse_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PaymentServer).Release(ctx, req.(*ReleaseRequest))
+		return srv.(PaymentServer).Reimburse(ctx, req.(*ReimburseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -188,8 +188,8 @@ var Payment_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Payment_Capture_Handler,
 		},
 		{
-			MethodName: "Release",
-			Handler:    _Payment_Release_Handler,
+			MethodName: "Reimburse",
+			Handler:    _Payment_Reimburse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
